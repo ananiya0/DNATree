@@ -9,7 +9,7 @@
  */
 
 /**
- * Add the class description here.
+ * Reads and executes commands from a file
  *
  * @author Ananiya Admassu (ananiya0)
  * @version 03/13/2020

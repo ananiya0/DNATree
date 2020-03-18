@@ -9,7 +9,7 @@
  */
 
 /**
- * Add the class description here.
+ * Empty node for whole class
  *
  * @author Ananiya Admassu (ananiya0)
  * @version 03/13/2020

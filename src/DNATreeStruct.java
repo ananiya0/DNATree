@@ -9,11 +9,20 @@
  */
 
 /**
- * Base class for DNA node
+ * DNA tree storing DNA sequences under different branches
  *
  * @author Ananiya Admassu (ananiya0)
- * @version 03/13/2020
+ * @version 03/18/2020
  */
-public class DNATreeNode {
+public class DNATreeStruct {
 
+    private EmptyNode empty;
+    private DNATreeNode root;
+    
+    /**
+     * Constructor
+     */
+    public DNATreeStruct() {
+        root = empty;
+    }
 }

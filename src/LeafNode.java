@@ -9,11 +9,27 @@
  */
 
 /**
- * Add the class description here.
+ * Leaf Node storing DNA sequences
  *
  * @author Ananiya Admassu (ananiya0)
  * @version 03/13/2020
  */
 public class LeafNode extends DNATreeNode {
 
+    private String sequence;
+    
+    /**
+     * Constructor
+     * @param seq is the DNA sequence
+     */
+    public LeafNode(String seq) {
+        sequence = seq;
+    }
+    
+    /**
+     * @return is the node's DNA sequence
+     */
+    public String getSequence() {
+        return sequence;
+    }
 }
