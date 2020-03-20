@@ -16,4 +16,23 @@
  */
 public class DNATreeNode {
 
+    private int level;
+    
+    /**
+     * Retrieve Level when called
+     * @return the level of the node
+     */
+    private int getLevel()
+    {
+        return level;
+    }
+    
+    /**
+     * Set the new level to parameter "level"
+     * @param level
+     */
+    public void setLevel(int level)
+    {
+        this.level = level;
+    }
 }
