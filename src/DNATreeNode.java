@@ -22,7 +22,7 @@ public class DNATreeNode {
      * Retrieve Level when called
      * @return the level of the node
      */
-    private int getLevel()
+    public int getLevel()
     {
         return level;
     }

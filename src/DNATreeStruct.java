@@ -25,4 +25,37 @@ public class DNATreeStruct {
     public DNATreeStruct() {
         root = empty;
     }
+
+    /**
+     * @param seq
+     */
+    public void insert(String seq) {
+        // TODO Auto-generated method stub
+        
+    }
+
+    /**
+     * @param seq
+     * @return
+     */
+    public boolean remove(String seq) {
+        // TODO Auto-generated method stub
+        return false;
+    }
+
+    /**
+     * @param seq
+     * @return
+     */
+    public void search(String seq) {
+        // TODO Auto-generated method stub
+    }
+
+    /**
+     * @param c
+     */
+    public void print(char type) {
+        // TODO Auto-generated method stub
+        
+    }
 }
