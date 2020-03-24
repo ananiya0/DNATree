@@ -22,7 +22,7 @@ public class InternalNode extends DNATreeNode {
      * Constructor
      * @param empty is the flyweight node
      */
-    public InternalNode(EmptyNode empty) {
+    public InternalNode(DNATreeNode empty) {
         A = empty;
         C = empty;
         G = empty;
@@ -31,10 +31,11 @@ public class InternalNode extends DNATreeNode {
     }
     
     /**
+     * returns a branch of the internal node
      * @param branch is the sequence branch
      * @return is the node on the branch matching the character
      */
-    public DNATreeNode getNode(char branch) {
+    public DNATreeNode getBranch(char branch) {
         switch(branch) {
             case 'A':
                 return A;
@@ -52,12 +53,12 @@ public class InternalNode extends DNATreeNode {
     }
     
     /**
-     * Sets the value of a node
+     * Sets the value of a branch of the internal node
      * @param node is the value to be stored
      * @param branch is the branch
      * @return is true if node was set successfully
      */
-    public boolean setNode(DNATreeNode node, char branch) {
+    public boolean setBranch(DNATreeNode node, char branch) {
         switch(branch) {
             case 'A':
                 A = node;

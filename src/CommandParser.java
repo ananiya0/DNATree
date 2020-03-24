@@ -34,18 +34,18 @@ public class CommandParser {
                     this.insert(line[1]);
                     break;
                 case "remove":
-                    this.remove(line[1]);
+                    //this.remove(line[1]);
                     break;
                 case "print":
-                    if (line.length == 1) {
+                   /* if (line.length == 1) {
                         tree.print('d');
                     }
                     else {
                         tree.print(line[1].charAt(0));
-                    }
+                    }*/
                     break;
                 case "search":
-                    this.search(line[1]);
+                    //this.search(line[1]);
                     break;
 
                 default:
