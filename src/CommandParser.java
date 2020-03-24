@@ -34,18 +34,20 @@ public class CommandParser {
                     this.insert(line[1]);
                     break;
                 case "remove":
-                    //this.remove(line[1]);
+                    this.remove(line[1]);
                     break;
                 case "print":
-                   /* if (line.length == 1) {
-                        tree.print('d');
-                    }
-                    else {
-                        tree.print(line[1].charAt(0));
-                    }*/
+                    /*
+                     * if (line.length == 1) {
+                     * tree.print('d');
+                     * }
+                     * else {
+                     * tree.print(line[1].charAt(0));
+                     * }
+                     */
                     break;
                 case "search":
-                    //this.search(line[1]);
+                    // this.search(line[1]);
                     break;
 
                 default:
@@ -82,8 +84,7 @@ public class CommandParser {
      */
     public void remove(String seq) {
         if (seq.matches("[ACGT]+")) {
-            boolean yes = tree.remove(seq);
-            if (yes = true) {
+            if (tree.remove(seq)) {
                 System.out.println("sequence " + seq + " removed");
             }
             else {
@@ -93,7 +94,6 @@ public class CommandParser {
         else {
             System.out.println("sequence " + seq + " is invalid");
         }
-        // print something
     }
 
 

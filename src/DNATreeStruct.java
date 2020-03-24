@@ -29,8 +29,10 @@ public class DNATreeStruct {
 
 
     /**
+     * Attempts to insert the given sequence
      * 
      * @param seq
+     *            is the sequence
      */
     public void insert(String seq) {
         if (root == empty) {
@@ -65,11 +67,25 @@ public class DNATreeStruct {
 
 
     /**
+     * Attempts to remove the given sequence
+     * 
      * @param seq
-     * @return
+     *            is the sequence
+     * @return is true if sequence was removed
      */
     public boolean remove(String seq) {
-        // TODO Auto-generated method stub
+        if (root instanceof EmptyNode) {
+            return false;
+        }
+        else if (root instanceof LeafNode) {
+            if (((LeafNode)root).getSequence().equals(seq)) {
+                root = empty;
+                return true;
+            }
+        }
+        else {
+            return remove(seq, root, 0);
+        }
         return false;
     }
 
@@ -93,7 +109,15 @@ public class DNATreeStruct {
 
 
     /**
+     * Attempts to insert a sequence into the tree
+     * 
      * @param seq
+     *            is the sequence
+     * @param node
+     *            is the current node
+     * @param level
+     *            is the level in the tree
+     * @return is the level of insertion, or -1 if unsuccesful
      */
     private int insert(String seq, DNATreeNode node, int level) {
         if (seq.length() == level) {
@@ -138,5 +162,51 @@ public class DNATreeStruct {
                     level)), level + 1);
             }
         }
+    }
+
+
+    /**
+     * Attempts to remove a sequence from the tree
+     * 
+     * @param seq
+     *            is the sequence to be removed
+     * @param node
+     *            is the current node
+     * @param index
+     * @return is true if sequence was removed
+     */
+    private boolean remove(String seq, DNATreeNode node, int index) {
+        if (seq.length() == index) {
+            if (((InternalNode)node).getBranch('$') instanceof EmptyNode) {
+                return false;
+            }
+            DNATreeNode leaf = ((InternalNode)node).getBranch('$');
+            if (((LeafNode)leaf).getSequence().equals(seq)) {
+                ((InternalNode)node).setBranch(empty, '$');
+                return true;
+            }
+            return false;
+        }
+        else {
+            if (((InternalNode)node).getBranch(seq.charAt(
+                index)) instanceof EmptyNode) {
+                return false;
+            }
+            else if (((InternalNode)node).getBranch(seq.charAt(
+                index)) instanceof LeafNode) {
+                DNATreeNode leaf = ((InternalNode)node).getBranch(seq.charAt(
+                    index));
+                if (((LeafNode)leaf).getSequence().equals(seq)) {
+                    ((InternalNode)node).setBranch(empty, seq.charAt(index));
+                    return true;
+                }
+            }
+            else if (((InternalNode)node).getBranch(seq.charAt(
+                index)) instanceof InternalNode) {
+                return remove(seq, ((InternalNode)node).getBranch(seq.charAt(
+                    index)), index + 1);
+            }
+        }
+        return false;
     }
 }

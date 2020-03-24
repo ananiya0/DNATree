@@ -20,6 +20,13 @@ insert ACTTA
  insert AA
  insert ACGT
  insert TATA
+ remove ADA
+ remove TATA
+ remove AAACCCTTTG
+ remove A
+ remove C
+ insert TATA
+ insert ACGTTH
  
  print lengths
  print stats
