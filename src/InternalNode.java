@@ -12,6 +12,7 @@
  * Internal branching node
  *
  * @author Ananiya Admassu (ananiya0)
+ * @author Nebiyu Elias (nebiyue)
  * @version 03/13/2020
  */
 public class InternalNode extends DNATreeNode {

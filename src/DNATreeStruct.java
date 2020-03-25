@@ -6,18 +6,23 @@
  * I will not lie, cheat, or steal, nor will I
  * accept the actions of those who do.
  * -- Ananiya Admassu (ananiya0)
+ * -- Nebiyu Elias nebiyue
  */
 
 /**
  * DNA tree storing DNA sequences under different branches
  *
  * @author Ananiya Admassu (ananiya0)
+ * @author Nebiyu Elias (nebiyue)
  * @version 03/18/2020
  */
 public class DNATreeStruct {
 
     private DNATreeNode empty = new EmptyNode();
     private DNATreeNode root;
+    private InternalNode internalReference;
+    private EmptyNode emptyReference;
+    private LeafNode leafReference;
 
 
     /**
@@ -94,18 +99,91 @@ public class DNATreeStruct {
      * @param seq
      * @return
      */
-    public void search(String seq) {
-        // TODO Auto-generated method stub
+    public String search(String seq) {
+        
+        //Initializing stuff to be used later
+        String without$ = seq;
+        int indicator = 0;
+        int i = 0;
+        int touched = 0;
+        char letter = '\n';
+        
+        InternalNode intRoot = (InternalNode)root;
+        String matches = "";
+        
+        //root instanceof EmptyNode
+        if (root.getClass() == emptyReference.getClass())
+        {
+            int numba = 1;
+            String noneFound = new String("no sequence found");
+            return noneFound + "\n" + "# of nodes visited: " + numba;
+        }
+        
+        
+        if (seq.charAt(seq.length() - 1) == '$')
+        {
+            without$ = seq.substring(0, seq.length() - 1);
+        }
+        
+        if (root instanceof LeafNode)
+        {
+            if (without$.equals(((LeafNode)root).getSequence()))
+            {
+                matches ="sequence: " + without$;
+            }
+            matches = "no sequence found";
+            
+        }
+        else
+        {
+            //InternalNode intRoot = (InternalNode)root;
+            while (i < seq.length())
+            {
+                if (internalReference.getClass() != 
+                    intRoot.getBranch(seq.charAt(i)).getClass())
+                {
+                    break;
+                }
+                
+                intRoot = (InternalNode)intRoot.getBranch(seq.charAt(i));
+                i = i + 1;
+                touched = touched + 1;              
+            }
+            
+            letter = seq.charAt(i);
+            DNATreeNode next = intRoot.getBranch(letter);
+            
+            if (next.getClass() == leafReference.getClass())
+            {
+                if (((LeafNode)next).getSequence().substring(0, seq.length()).equals(seq))
+                {
+                    matches = matches + "sequence: " + ((LeafNode)next).getSequence();
+                }
+                else
+                {
+                    matches = "No Sequence found";
+                }
+                touched++;
+            }
+            else
+            {
+                
+            }
+        }
+        
+        
+        
+        return "";
     }
 
 
     /**
      * @param c
      */
-    public void print(char type) {
+    //public String print() {
         // TODO Auto-generated method stub
 
-    }
+    //}
 
 
     /**
