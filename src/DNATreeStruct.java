@@ -104,6 +104,7 @@ public class DNATreeStruct {
         //Initializing stuff to be used later
         String without$ = seq;
         int indicator = 0;
+        int withTeller = 0;
         int i = 0;
         int touched = 0;
         char letter = '\n';
@@ -123,6 +124,13 @@ public class DNATreeStruct {
         if (seq.charAt(seq.length() - 1) == '$')
         {
             without$ = seq.substring(0, seq.length() - 1);
+            seq = seq.substring(0, seq.length() - 1);
+            indicator = 1;
+            withTeller = 1;
+        }
+        else
+        {
+            withTeller = 0;
         }
         
         if (root instanceof LeafNode)
@@ -153,27 +161,45 @@ public class DNATreeStruct {
             letter = seq.charAt(i);
             DNATreeNode next = intRoot.getBranch(letter);
             
-            if (next.getClass() == leafReference.getClass())
+            if (indicator == 1) 
             {
-                if (((LeafNode)next).getSequence().substring(0, seq.length()).equals(seq))
+                if (next.getClass() == leafReference.getClass())
                 {
-                    matches = matches + "sequence: " + ((LeafNode)next).getSequence();
+                    if (((LeafNode)next).getSequence().substring(0, seq.length()).equals(seq))
+                    {
+                        matches = matches + "sequence: " + ((LeafNode)next).getSequence();
+                    }
                 }
                 else
                 {
                     matches = "No Sequence found";
                 }
+                
                 touched++;
             }
+            
             else
             {
-                
+                //if (letter == '$')
+                //{
+                    
+                //}
+                if (next.getClass() == leafReference.getClass()
+                    && ((LeafNode)next).getSequence().equals(without$)
+                    && letter == '$')
+                {
+                    matches = matches + "sequence: " + ((LeafNode)next).getSequence();
+                    touched = touched + 1;
+                }
+                else
+                {
+                    matches = "No Sequence found";
+                    touched = touched + 1;
+                }
             }
         }
         
-        
-        
-        return "";
+        return "# of nodes visited: " + touched + "\n" + matches + "\n";
     }
 
 
