@@ -42,3 +42,4 @@ insert ACTTA
                          search     AA
  search      ACGT$
  search A
+ search AAT

@@ -1,5 +1,4 @@
 import java.util.LinkedList;
-import java.util.List;
 
 /**
  * Virginia Tech Honor Code Pledge:
@@ -368,12 +367,18 @@ public class DNATreeStruct {
 
 
     /**
+     * Searches the tree for the exact matching sequence, starting from internal
+     * node
      * 
      * @param seq
+     *            is the sequence
      * @param node
+     *            is the internal node
      * @param level
+     *            is the level in the tree
      * @param visits
-     * @return
+     *            is the number of nodes visited
+     * @return is visits
      */
     private int searchExact(
         String seq,
@@ -414,12 +419,21 @@ public class DNATreeStruct {
 
 
     /**
+     * Searches the tree for sequences with the given prefix, starting from
+     * internal node
      * 
      * @param seq
+     *            is the sequence
      * @param node
+     *            is the internal node
      * @param level
-     * @param ends
-     * @return
+     *            is the level in the tree
+     * @param visits
+     *            is the number of nodes visited
+     * @param flag
+     *            is an indicator for when we reach the level of the tree where
+     *            the sequence ends
+     * @return is visits
      */
     private int search(
         String seq,
@@ -428,14 +442,14 @@ public class DNATreeStruct {
         int visits,
         boolean flag) {
 
-        flag = level >= seq.length()-1;
+        flag = level >= seq.length();
 
         if (flag) {
             String branches = "ACGT$";
             for (int i = 0; i < branches.length(); i++) {
                 if (((InternalNode)node).getBranch(branches.charAt(
                     i)) instanceof EmptyNode) {
-                    // do nothing
+                    visits++;
                 }
                 else if (((InternalNode)node).getBranch(branches.charAt(
                     i)) instanceof LeafNode) {
@@ -445,19 +459,19 @@ public class DNATreeStruct {
                     if (seq2.startsWith(seq)) {
                         list.add(seq2);
                     }
+                    visits++;
                 }
                 else {
                     visits = search(seq, ((InternalNode)node).getBranch(branches
                         .charAt(i)), level + 1, visits + 1, flag);
                 }
-                visits++;
             }
         }
 
         else {
             if (((InternalNode)node).getBranch(seq.charAt(
                 level)) instanceof EmptyNode) {
-                // do nothing
+                visits++;
             }
             else if (((InternalNode)node).getBranch(seq.charAt(
                 level)) instanceof LeafNode) {
@@ -467,6 +481,7 @@ public class DNATreeStruct {
                 if (seq2.startsWith(seq)) {
                     list.add(seq2);
                 }
+                visits++;
             }
             else {
                 return search(seq, ((InternalNode)node).getBranch(seq.charAt(
