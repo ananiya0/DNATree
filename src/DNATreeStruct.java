@@ -1,3 +1,6 @@
+import java.util.LinkedList;
+import java.util.List;
+
 /**
  * Virginia Tech Honor Code Pledge:
  *
@@ -20,6 +23,7 @@ public class DNATreeStruct {
 
     private DNATreeNode empty = new EmptyNode();
     private DNATreeNode root;
+    private LinkedList<String> list;
     private InternalNode internalReference;
     private EmptyNode emptyReference;
     private LeafNode leafReference;
@@ -99,117 +103,165 @@ public class DNATreeStruct {
      * @param seq
      * @return
      */
-    public String search(String seq) {
-        
-        //Initializing stuff to be used later
-        String without$ = seq;
-        int indicator = 0;
-        int withTeller = 0;
-        int i = 0;
-        int touched = 0;
-        char letter = '\n';
-        
-        InternalNode intRoot = (InternalNode)root;
-        String matches = "";
-        
-        //root instanceof EmptyNode
-        if (root.getClass() == emptyReference.getClass())
-        {
-            int numba = 1;
-            String noneFound = new String("no sequence found");
-            return noneFound + "\n" + "# of nodes visited: " + numba;
-        }
-        
-        
-        if (seq.charAt(seq.length() - 1) == '$')
-        {
-            without$ = seq.substring(0, seq.length() - 1);
-            seq = seq.substring(0, seq.length() - 1);
-            indicator = 1;
-            withTeller = 1;
-        }
-        else
-        {
-            withTeller = 0;
-        }
-        
-        if (root instanceof LeafNode)
-        {
-            if (without$.equals(((LeafNode)root).getSequence()))
-            {
-                matches ="sequence: " + without$;
-            }
-            matches = "no sequence found";
-            
-        }
-        else
-        {
-            //InternalNode intRoot = (InternalNode)root;
-            while (i < seq.length())
-            {
-                if (internalReference.getClass() != 
-                    intRoot.getBranch(seq.charAt(i)).getClass())
-                {
-                    break;
-                }
-                
-                intRoot = (InternalNode)intRoot.getBranch(seq.charAt(i));
-                i = i + 1;
-                touched = touched + 1;              
-            }
-            
-            letter = seq.charAt(i);
-            DNATreeNode next = intRoot.getBranch(letter);
-            
-            if (indicator == 1) 
-            {
-                if (next.getClass() == leafReference.getClass())
-                {
-                    if (((LeafNode)next).getSequence().substring(0, seq.length()).equals(seq))
-                    {
-                        matches = matches + "sequence: " + ((LeafNode)next).getSequence();
-                    }
-                }
-                else
-                {
-                    matches = "No Sequence found";
-                }
-                
-                touched++;
-            }
-            
-            else
-            {
-                //if (letter == '$')
-                //{
-                    
-                //}
-                if (next.getClass() == leafReference.getClass()
-                    && ((LeafNode)next).getSequence().equals(without$)
-                    && letter == '$')
-                {
-                    matches = matches + "sequence: " + ((LeafNode)next).getSequence();
-                    touched = touched + 1;
-                }
-                else
-                {
-                    matches = "No Sequence found";
-                    touched = touched + 1;
-                }
-            }
-        }
-        
-        return "# of nodes visited: " + touched + "\n" + matches + "\n";
-    }
+    public void search(String seq) {
+        /*
+         * 
+         * //Initializing stuff to be used later
+         * String without$ = seq;
+         * int indicator = 0;
+         * int withTeller = 0;
+         * int i = 0;
+         * int touched = 0;
+         * char letter = '\n';
+         * 
+         * InternalNode intRoot = (InternalNode)root;
+         * String matches = "";
+         * 
+         * //root instanceof EmptyNode
+         * if (root.getClass() == emptyReference.getClass())
+         * {
+         * int numba = 1;
+         * String noneFound = new String("no sequence found");
+         * return noneFound + "\n" + "# of nodes visited: " + numba;
+         * }
+         * 
+         * 
+         * if (seq.charAt(seq.length() - 1) == '$')
+         * {
+         * without$ = seq.substring(0, seq.length() - 1);
+         * seq = seq.substring(0, seq.length() - 1);
+         * indicator = 1;
+         * withTeller = 1;
+         * }
+         * else
+         * {
+         * withTeller = 0;
+         * }
+         * 
+         * if (root instanceof LeafNode)
+         * {
+         * if (without$.equals(((LeafNode)root).getSequence()))
+         * {
+         * matches ="sequence: " + without$;
+         * }
+         * matches = "no sequence found";
+         * 
+         * }
+         * else
+         * {
+         * //InternalNode intRoot = (InternalNode)root;
+         * while (i < seq.length())
+         * {
+         * if (internalReference.getClass() !=
+         * intRoot.getBranch(seq.charAt(i)).getClass())
+         * {
+         * break;
+         * }
+         * 
+         * intRoot = (InternalNode)intRoot.getBranch(seq.charAt(i));
+         * i = i + 1;
+         * touched = touched + 1;
+         * }
+         * 
+         * letter = seq.charAt(i);
+         * DNATreeNode next = intRoot.getBranch(letter);
+         * 
+         * if (indicator == 1)
+         * {
+         * if (next.getClass() == leafReference.getClass())
+         * {
+         * if (((LeafNode)next).getSequence().substring(0,
+         * seq.length()).equals(seq))
+         * {
+         * matches = matches + "sequence: " + ((LeafNode)next).getSequence();
+         * }
+         * }
+         * else
+         * {
+         * matches = "No Sequence found";
+         * }
+         * 
+         * touched++;
+         * }
+         * 
+         * else
+         * {
+         * //if (letter == '$')
+         * //{
+         * 
+         * //}
+         * if (next.getClass() == leafReference.getClass()
+         * && ((LeafNode)next).getSequence().equals(without$)
+         * && letter == '$')
+         * {
+         * matches = matches + "sequence: " + ((LeafNode)next).getSequence();
+         * touched = touched + 1;
+         * }
+         * else
+         * {
+         * matches = "No Sequence found";
+         * touched = touched + 1;
+         * }
+         * }
+         * }
+         * 
+         * return "# of nodes visited: " + touched + "\n" + matches + "\n";
+         * 
+         */
 
+        boolean exact = seq.endsWith("$") ? true : false;
+        if (root instanceof EmptyNode) {
+            System.out.println("# of nodes visited: 0 \n no sequence found");
+        }
+        else if (root instanceof LeafNode) {
+            String seq2 = ((LeafNode)root).getSequence();
+            System.out.println("# of nodes visited: 1");
+            if (exact) {
+                if (seq2.equals(seq.substring(0, seq.length() - 1))) {
+                    System.out.println("sequence: " + seq2);
+                }
+                else {
+                    System.out.println("no sequence found");
+                }
+            }
+            else {
+                if (seq2.startsWith(seq)) {
+                    System.out.println("sequence: " + seq2);
+                }
+                else {
+                    System.out.println("no sequence found");
+                }
+            }
+        }
+        else {
+            list = new LinkedList<String>();
+            int visits = 1;
+            if (exact) {
+                seq = seq.substring(0, seq.length() - 1);
+                visits = searchExact(seq, root, 0, 1);
+            }
+            else {
+                visits = search(seq, root, 0, visits, false);
+            }
+            System.out.println("# of nodes visited: " + visits);
+            if (!list.isEmpty()) {
+                for (int i = 0; i < list.size(); i++) {
+                    System.out.println("sequence: " + list.get(i));
+                }
+            }
+            else {
+                System.out.println("no sequence found");
+            }
+        }
+    }
 
     /**
      * @param c
      */
-    //public String print() {
-        // TODO Auto-generated method stub
+    // public String print() {
+    // TODO Auto-generated method stub
 
-    //}
+    // }
 
 
     /**
@@ -313,6 +365,115 @@ public class DNATreeStruct {
         }
         return false;
     }
-    
-    
+
+
+    /**
+     * 
+     * @param seq
+     * @param node
+     * @param level
+     * @param visits
+     * @return
+     */
+    private int searchExact(
+        String seq,
+        DNATreeNode node,
+        int level,
+        int visits) {
+        if (seq.length() == level) {
+            if (((InternalNode)node).getBranch('$') instanceof EmptyNode) {
+                // do nothing
+            }
+            DNATreeNode leaf = ((InternalNode)node).getBranch('$');
+            if (((LeafNode)leaf).getSequence().equals(seq)) {
+                list.add(seq);
+            }
+            return visits + 1;
+        }
+        else {
+            if (((InternalNode)node).getBranch(seq.charAt(
+                level)) instanceof EmptyNode) {
+                // do nothing
+            }
+            else if (((InternalNode)node).getBranch(seq.charAt(
+                level)) instanceof LeafNode) {
+                DNATreeNode leaf = ((InternalNode)node).getBranch(seq.charAt(
+                    level));
+                if (((LeafNode)leaf).getSequence().equals(seq)) {
+                    list.add(seq);
+                }
+            }
+            else if (((InternalNode)node).getBranch(seq.charAt(
+                level)) instanceof InternalNode) {
+                return searchExact(seq, ((InternalNode)node).getBranch(seq
+                    .charAt(level)), level + 1, visits + 1);
+            }
+        }
+        return visits + 1;
+    }
+
+
+    /**
+     * 
+     * @param seq
+     * @param node
+     * @param level
+     * @param ends
+     * @return
+     */
+    private int search(
+        String seq,
+        DNATreeNode node,
+        int level,
+        int visits,
+        boolean flag) {
+
+        flag = level >= seq.length()-1;
+
+        if (flag) {
+            String branches = "ACGT$";
+            for (int i = 0; i < branches.length(); i++) {
+                if (((InternalNode)node).getBranch(branches.charAt(
+                    i)) instanceof EmptyNode) {
+                    // do nothing
+                }
+                else if (((InternalNode)node).getBranch(branches.charAt(
+                    i)) instanceof LeafNode) {
+                    DNATreeNode leaf = ((InternalNode)node).getBranch(branches
+                        .charAt(i));
+                    String seq2 = ((LeafNode)leaf).getSequence();
+                    if (seq2.startsWith(seq)) {
+                        list.add(seq2);
+                    }
+                }
+                else {
+                    visits = search(seq, ((InternalNode)node).getBranch(branches
+                        .charAt(i)), level + 1, visits + 1, flag);
+                }
+                visits++;
+            }
+        }
+
+        else {
+            if (((InternalNode)node).getBranch(seq.charAt(
+                level)) instanceof EmptyNode) {
+                // do nothing
+            }
+            else if (((InternalNode)node).getBranch(seq.charAt(
+                level)) instanceof LeafNode) {
+                DNATreeNode leaf = ((InternalNode)node).getBranch(seq.charAt(
+                    level));
+                String seq2 = ((LeafNode)leaf).getSequence();
+                if (seq2.startsWith(seq)) {
+                    list.add(seq2);
+                }
+            }
+            else {
+                return search(seq, ((InternalNode)node).getBranch(seq.charAt(
+                    level)), level + 1, visits + 1, flag);
+            }
+        }
+        return visits;
+    }
+
 }

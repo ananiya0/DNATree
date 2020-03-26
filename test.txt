@@ -27,6 +27,13 @@ insert ACTTA
  remove C
  insert TATA
  insert ACGTTH
+ insert AAAAGGT
+
+ insert A
+ insert T
+ insert T
+
+ remove T
  
  print lengths
  print stats
@@ -34,3 +41,4 @@ insert ACTTA
  search         AAAA$
                          search     AA
  search      ACGT$
+ search A

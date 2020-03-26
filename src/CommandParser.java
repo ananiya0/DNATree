@@ -47,7 +47,7 @@ public class CommandParser {
                      */
                     break;
                 case "search":
-                    // this.search(line[1]);
+                    this.search(line[1]);
                     break;
 
                 default:
