@@ -1,5 +1,7 @@
+search ACGT
        insert ACGT     
-    
+search ACGT
+search G
 
 
  insert            AAAA   

@@ -210,7 +210,8 @@ public class DNATreeStruct {
 
         boolean exact = seq.endsWith("$") ? true : false;
         if (root instanceof EmptyNode) {
-            System.out.println("# of nodes visited: 0 \n no sequence found");
+            System.out.println("# of nodes visited: 0\n"
+                + "no sequence found");
         }
         else if (root instanceof LeafNode) {
             String seq2 = ((LeafNode)root).getSequence();
