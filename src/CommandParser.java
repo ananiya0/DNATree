@@ -37,6 +37,7 @@ public class CommandParser {
                     this.remove(line[1]);
                     break;
                 case "print":
+                    this.print(line[0]);
                     /*
                      * if (line.length == 1) {
                      * tree.print('d');
@@ -109,6 +110,17 @@ public class CommandParser {
         }
         else {
             System.out.println("sequence " + seq + " is invalid");
+        }
+    }
+    
+    /**
+     * Prints the DNAtree
+     */
+    public void print(String command)
+    {
+        if (command.matches("print"))
+        {
+            System.out.println("tree dump: \n" + tree.print());
         }
     }
 

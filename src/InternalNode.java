@@ -24,11 +24,13 @@ public class InternalNode extends DNATreeNode {
      * @param empty is the flyweight node
      */
     public InternalNode(DNATreeNode empty) {
+        //setLevel(depth);
         A = empty;
         C = empty;
         G = empty;
         T = empty;
         $ = empty;
+        
     }
     
     /**
