@@ -1,3 +1,4 @@
+import java.text.DecimalFormat;
 import java.util.LinkedList;
 
 /**
@@ -158,9 +159,22 @@ public class DNATreeStruct {
      * @return the String version of the tree with root 
      * and parent as parameters
      */
-    public String print() {
+    public void print() {
     
-        return print(root, null) + "\n";
+        if (root instanceof EmptyNode)
+        {
+            System.out.println("E");
+        }
+        else if (root instanceof LeafNode)
+        {
+            System.out.println(((LeafNode)root).getSequence());
+        }
+        else 
+        {
+            System.out.print("I\n");
+            print(root, 0);
+        }
+
     }
     
     /**
@@ -168,72 +182,206 @@ public class DNATreeStruct {
      * @return the String version of the tree
      * @param c
      */
-    public String print(DNATreeNode node, DNATreeNode preNode) {
+    private void print(DNATreeNode node, int level) {
         
-        // Return E if the tree is empty.
-        if (node instanceof EmptyNode)
-        {
-            return "E \n";
-        }
-        
-        String tree = "";
-        if (preNode == null)
-        {
-            tree = tree + "I \n";
-        }
-        int level = printLevelHelp(node, preNode, 0);
+        //int level = printLevelHelp(node, 0);
        
-/*      PRINT THE TREE ALL AT ONCE
- *   
- *      String branches = "ACGT$";
+//      PRINT THE TREE ALL AT ONCE
+        String branches = "ACGT$";
         for (int i = 0; i < branches.length(); i++)
         {
-            if (node instanceof EmptyNode)
+            for (int j = 0; j < level + 1; j++)
             {
-                return tree + "E";
+                System.out.print("  ");
             }
-            if (node instanceof LeafNode)
+            if (((InternalNode)node).getBranch(branches.charAt(i)) instanceof EmptyNode)
             {
-                return tree;
+                System.out.print("E\n");
+            }
+            else if (((InternalNode)node).getBranch(branches.charAt(i)) instanceof LeafNode)
+            {
+                LeafNode leaf = (LeafNode)((InternalNode)node).getBranch(branches.charAt(i));
+                System.out.print(leaf.getSequence() + "\n");
             }
             else
             {
-                if (((InternalNode)node).getBranch(branches.charAt(i)) instanceof LeafNode)
-                {
-                    String dna = ((LeafNode)node).getSequence();
-                    tree = tree + dna + "\n";
-                    
-                }
-                if
+                System.out.print("I\n");
+                print(((InternalNode)node).getBranch(branches.charAt(i)), level + 1);
             }
         }
-*/      for (int i = 0; i < level; i++)
+  
+    }
+    
+    /**
+     * Print the DNATree
+     * @param c
+     * @return the String version of the tree with root 
+     * and parent as parameters
+     */
+    public void printStats() {
+    
+        if (root instanceof EmptyNode)
         {
-            tree = tree + " ";
+            System.out.println("E");
         }
-        
-        if (node instanceof LeafNode)
+        else if (root instanceof LeafNode)
         {
-            String dna = ((LeafNode)node).getSequence();
-            tree = tree + dna + "\n";
-        }
-        else if (node instanceof EmptyNode)
-        {
-            tree = tree + "E \n";
-        }
-        else if (node instanceof InternalNode)
-        {
-            tree = tree + "I \n";
             
-            tree = tree + print(((InternalNode)node).getBranch('$'), node);
-            tree = tree + print(((InternalNode)node).getBranch('A'), node);
-            tree = tree + print(((InternalNode)node).getBranch('C'), node);
-            tree = tree + print(((InternalNode)node).getBranch('G'), node);
-            tree = tree + print(((InternalNode)node).getBranch('T'), node);
+            System.out.println(printStatsHelp(((LeafNode)root).getSequence()));
         }
+        else 
+        {
+            System.out.print("I\n");
+            printStats(root, 0);
+        }
+
+    }
+    
+    /**
+     * Print the DNATree helper. First find the levels of each
+     * @return the String version of the tree
+     * @param c
+     */
+    private void printStats(DNATreeNode node, int level) {
         
-        //System.out.print(tree); 
-        return tree;
+        //int level = printLevelHelp(node, 0);
+       
+//      PRINT THE TREE ALL AT ONCE
+        String branches = "ACGT$";
+        for (int i = 0; i < branches.length(); i++)
+        {
+            for (int j = 0; j < level + 1; j++)
+            {
+                System.out.print("  ");
+            }
+            if (((InternalNode)node).getBranch(branches.charAt(i)) instanceof EmptyNode)
+            {
+                System.out.print("E\n");
+            }
+            else if (((InternalNode)node).getBranch(branches.charAt(i)) instanceof LeafNode)
+            {
+                LeafNode leaf = (LeafNode)((InternalNode)node).getBranch(branches.charAt(i));
+                
+                System.out.print(printStatsHelp(leaf.getSequence()) + "\n");
+            }
+            else
+            {
+                System.out.print("I\n");
+                printStats(((InternalNode)node).getBranch(branches.charAt(i)), level + 1);
+            }
+        }
+  
+    }
+    
+    /**
+    *
+    * @param c
+    * @return the String version of the tree with root 
+    * and parent as parameters
+    */
+   private String printStatsHelp(String seq) 
+   {
+       double aCount = 0;
+       double cCount = 0;
+       double gCount = 0;
+       double tCount = 0;
+       
+       for (int i = 0; i < seq.length(); i++)
+       {
+           if (seq.charAt(i) == 'A')
+           {
+               aCount++;
+           }
+           else if (seq.charAt(i) == 'C')
+           {
+               cCount++;
+           }
+           else if (seq.charAt(i) == 'G')
+           {
+               gCount++;
+           }
+           else if (seq.charAt(i) == 'T')
+           {
+               tCount++;
+           }
+       }
+       
+       DecimalFormat df = new DecimalFormat("##.##");
+      
+       
+       aCount /= ((double)seq.length());
+       cCount /= ((double)seq.length());
+       gCount /= ((double)seq.length());
+       tCount /= ((double)seq.length());
+       
+       seq += " A:" + String.format("%.2f", aCount * 100) + " " + "C:" + String.format("%.2f", cCount * 100) + " "
+           + "G:" + String.format("%.2f", gCount * 100) + " " + "T:" + String.format("%.2f", tCount * 100) + " ";
+       
+       return seq;
+       
+   }
+    
+    
+    /**
+     *
+     * @param c
+     * @return the String version of the tree with root 
+     * and parent as parameters
+     */
+    public void printLengths() {
+    
+        if (root instanceof EmptyNode)
+        {
+            System.out.println("E");
+        }
+        else if (root instanceof LeafNode)
+        {
+            String seq = ((LeafNode)root).getSequence();
+            System.out.println(seq + " " + seq.length());
+        }
+        else 
+        {
+            System.out.print("I\n");
+            printLengths(root, 0);
+        }
+
+    }
+    
+    /**
+     * Print the DNATree helper. First find the levels of each
+     * @return the String version of the tree
+     * @param c
+     */
+    private void printLengths(DNATreeNode node, int level) {
+        
+        //int level = printLevelHelp(node, 0);
+       
+//      PRINT THE TREE ALL AT ONCE
+        String branches = "ACGT$";
+        for (int i = 0; i < branches.length(); i++)
+        {
+            for (int j = 0; j < level + 1; j++)
+            {
+                System.out.print("  ");
+            }
+            if (((InternalNode)node).getBranch(branches.charAt(i)) instanceof EmptyNode)
+            {
+                System.out.print("E\n");
+            }
+            else if (((InternalNode)node).getBranch(branches.charAt(i)) instanceof LeafNode)
+            {
+                
+                LeafNode leaf = (LeafNode)((InternalNode)node).getBranch(branches.charAt(i));
+                String seq = leaf.getSequence();
+                System.out.print(leaf.getSequence() + " " + seq.length());
+            }
+            else
+            {
+                System.out.print("I\n");
+                printLengths(((InternalNode)node).getBranch(branches.charAt(i)), level + 1);
+            }
+        }
+  
     }
     
     /**

@@ -37,7 +37,20 @@ public class CommandParser {
                     this.remove(line[1]);
                     break;
                 case "print":
-                    this.print(line[0]);
+                    if (line.length == 1)
+                    {
+                        tree.print();
+                    }
+         
+                    else if (line[1].equals("stats"))
+                    {
+                        tree.printStats();
+                    }
+                    else if (line[1].equals("lengths"))
+                    {
+                        tree.printLengths();
+                    }
+                        
                     /*
                      * if (line.length == 1) {
                      * tree.print('d');
@@ -113,15 +126,5 @@ public class CommandParser {
         }
     }
     
-    /**
-     * Prints the DNAtree
-     */
-    public void print(String command)
-    {
-        if (command.matches("print"))
-        {
-            System.out.println("tree dump: \n" + tree.print());
-        }
-    }
 
 }

@@ -14,7 +14,7 @@ remove       ACGT
 insert ACCTT
 insert ACTTA
  
- print
+ print stats
  
  insert TATA
  insert TCG
@@ -37,8 +37,8 @@ insert ACTTA
 
  remove T
  
- print lengths
  print stats
+
  
  search         AAAA$
                          search     AA

@@ -33,7 +33,7 @@ public class DNAtree {
             parser.parse(args[0]);
         }
         else {
-            parser.parse("testPrint");
+            parser.parse("test.txt");
         }
     }
 }
