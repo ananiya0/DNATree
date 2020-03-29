@@ -14,7 +14,8 @@ remove       ACGT
 insert ACCTT
 insert ACTTA
  
- print stats
+ print lengths
+
  
  insert TATA
  insert TCG

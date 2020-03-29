@@ -37,28 +37,17 @@ public class CommandParser {
                     this.remove(line[1]);
                     break;
                 case "print":
-                    if (line.length == 1)
-                    {
+                    if (line.length == 1) {
                         tree.print();
                     }
-         
-                    else if (line[1].equals("stats"))
-                    {
+
+                    else if (line[1].equals("stats")) {
                         tree.printStats();
                     }
-                    else if (line[1].equals("lengths"))
-                    {
+                    else if (line[1].equals("lengths")) {
                         tree.printLengths();
                     }
-                        
-                    /*
-                     * if (line.length == 1) {
-                     * tree.print('d');
-                     * }
-                     * else {
-                     * tree.print(line[1].charAt(0));
-                     * }
-                     */
+
                     break;
                 case "search":
                     this.search(line[1]);
@@ -125,6 +114,5 @@ public class CommandParser {
             System.out.println("sequence " + seq + " is invalid");
         }
     }
-    
 
 }
