@@ -91,15 +91,25 @@ public class DNATreeStruct {
         else {
             boolean ret = remove(seq, root, 0);
             String branches = "ACGT$";
-            boolean empt = true;
+            int count = 0;
             for (int i = 0; i < branches.length(); i++) {
                 if (!(((InternalNode)root).getBranch(branches.charAt(
                     i)) instanceof EmptyNode)) {
-                    empt = false;
+                    count++;
                 }
             }
-            if (empt) {
+            if (count == 0) {
                 root = empty;
+            }
+            else if (count == 1) {
+                for (int i = 0; i < branches.length(); i++) {
+                    if (((InternalNode)root).getBranch(branches.charAt(
+                        i)) instanceof LeafNode) {
+                        root = ((InternalNode)root).getBranch(branches.charAt(
+                            i));
+                        break;
+                    }
+                }
             }
             return ret;
         }
@@ -326,7 +336,7 @@ public class DNATreeStruct {
         }
         else if (root instanceof LeafNode) {
             String seq = ((LeafNode)root).getSequence();
-            System.out.println(seq + " " + seq.length() + "\n");
+            System.out.println(seq + " " + seq.length());
         }
         else {
             System.out.println("I");
@@ -471,17 +481,28 @@ public class DNATreeStruct {
                 boolean ret = remove(seq, ((InternalNode)node).getBranch(seq
                     .charAt(index)), index + 1);
                 String branches = "ACGT$";
-                boolean empt = true;
+                int count = 0;
                 DNATreeNode intern = ((InternalNode)node).getBranch(seq.charAt(
                     index));
                 for (int i = 0; i < branches.length(); i++) {
                     if (!(((InternalNode)intern).getBranch(branches.charAt(
                         i)) instanceof EmptyNode)) {
-                        empt = false;
+                        count++;
                     }
                 }
-                if (empt) {
+                if (count == 0) {
                     ((InternalNode)node).setBranch(empty, seq.charAt(index));
+                }
+                else if (count == 1) {
+                    for (int i = 0; i < branches.length(); i++) {
+                        if (((InternalNode)intern).getBranch(branches.charAt(
+                            i)) instanceof LeafNode) {
+                            ((InternalNode)node).setBranch(
+                                ((InternalNode)intern).getBranch(branches
+                                    .charAt(i)), seq.charAt(index));
+                            break;
+                        }
+                    }
                 }
                 return ret;
             }

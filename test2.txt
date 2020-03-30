@@ -1,18 +1,8 @@
-insert AA
-insert CC
-remove AA
-remove CC
-print
-insert A
-insert C
-print
        insert ACGT     
-       remove ACGT
-       print
     
 
 
- insert            AAAA  
+ insert            AAAA   
  insert AA
 insert                 AAACCCCGGTGAAAACGTA
 insert       ACTGGGAA          
@@ -23,12 +13,10 @@ insert ACCTT
 insert ACTTA
  
  print
- remove AA
- print
- insert AA
+ 
  insert TATA
  insert TCG
-
+ 
  print lengths
  print stats
  

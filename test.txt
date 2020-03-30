@@ -1,3 +1,11 @@
+insert AA
+insert A
+insert C
+print
+remove AA
+print
+remove C
+print
 search ACGT
 search ATT$
 print
@@ -54,4 +62,7 @@ insert ACTTA
  search      ACGT$
  search A
  search AAT
+ print
+ remove ACTGGGAA
+ remove ACTTA
  print
