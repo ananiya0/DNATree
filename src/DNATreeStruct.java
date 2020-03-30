@@ -102,7 +102,7 @@ public class DNATreeStruct {
     public void search(String seq) {
         boolean exact = seq.endsWith("$") ? true : false;
         if (root instanceof EmptyNode) {
-            System.out.println("# of nodes visited: 0\n" + "no sequence found");
+            System.out.println("# of nodes visited: 1\n" + "no sequence found");
         }
         else if (root instanceof LeafNode) {
             String seq2 = ((LeafNode)root).getSequence();
@@ -295,8 +295,8 @@ public class DNATreeStruct {
 
         seq += " A:" + String.format("%.2f", aCount * 100) + " " + "C:" + String
             .format("%.2f", cCount * 100) + " " + "G:" + String.format("%.2f",
-                gCount * 100) + " " + "T:" + String.format("%.2f", tCount * 100)
-            + " ";
+                gCount * 100) + " " + "T:" + String.format("%.2f", tCount
+                    * 100);
 
         return seq;
 
@@ -451,6 +451,16 @@ public class DNATreeStruct {
                     index));
                 if (((LeafNode)leaf).getSequence().equals(seq)) {
                     ((InternalNode)node).setBranch(empty, seq.charAt(index));
+                    String branches = "ACGT";
+                    boolean empt = true;
+                    for (int i = 0;i < branches.length();i++) {
+                        if(!(((InternalNode)node).getBranch(branches.charAt(i)) instanceof EmptyNode)) {
+                            empt = false;
+                        }
+                    }
+                    if(empt) {
+                        node = empty;
+                    }
                     return true;
                 }
             }

@@ -1,5 +1,13 @@
 search ACGT
-       insert ACGT     
+search ATT$
+print
+print stats
+print lengths
+
+       insert ACGT
+       print
+print stats
+print lengths     
 search ACGT
 search G
 
@@ -46,3 +54,4 @@ insert ACTTA
  search      ACGT$
  search A
  search AAT
+ print
