@@ -29,7 +29,8 @@ public class DNATreeNode {
     
     /**
      * Set the new level to parameter "level"
-     * @param level
+     * @param level the level of the node
+     * the level of the node
      */
     public void setLevel(int level)
     {

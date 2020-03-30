@@ -17,7 +17,11 @@
  */
 public class InternalNode extends DNATreeNode {
 
-    private DNATreeNode A,C,G,T,$;
+    private DNATreeNode a;
+    private DNATreeNode c;
+    private DNATreeNode g;
+    private DNATreeNode t;
+    private DNATreeNode end;
     
     /**
      * Constructor
@@ -25,11 +29,11 @@ public class InternalNode extends DNATreeNode {
      */
     public InternalNode(DNATreeNode empty) {
         //setLevel(depth);
-        A = empty;
-        C = empty;
-        G = empty;
-        T = empty;
-        $ = empty;
+        a = empty;
+        c = empty;
+        g = empty;
+        t = empty;
+        end = empty;
         
     }
     
@@ -41,15 +45,15 @@ public class InternalNode extends DNATreeNode {
     public DNATreeNode getBranch(char branch) {
         switch(branch) {
             case 'A':
-                return A;
+                return a;
             case 'C':
-                return C;
+                return c;
             case 'G':
-                return G;
+                return g;
             case 'T':
-                return T;
+                return t;
             case '$':
-                return $;
+                return end;
             default:
                 return null;
         }       
@@ -64,19 +68,19 @@ public class InternalNode extends DNATreeNode {
     public boolean setBranch(DNATreeNode node, char branch) {
         switch(branch) {
             case 'A':
-                A = node;
+                a = node;
                 return true;
             case 'C':
-                C = node;
+                c = node;
                 return true;
             case 'G':
-                G = node;
+                g = node;
                 return true;
             case 'T':
-                T = node;
+                t = node;
                 return true;
             case '$':
-                $ = node;
+                end = node;
                 return true;
             default:
                 return false;

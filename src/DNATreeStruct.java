@@ -97,6 +97,7 @@ public class DNATreeStruct {
 
     /**
      * @param seq
+     *      the sequence of the nodes
      * @return
      */
     public void search(String seq) {
@@ -148,11 +149,8 @@ public class DNATreeStruct {
 
 
     /**
-     * Print the DNATree
-     * 
-     * @param c
-     * @return the String version of the tree with root
-     *         and parent as parameters
+     * Print the DNATree out in specific structure
+     *      
      */
     public void print() {
         System.out.println("tree dump:");
@@ -170,11 +168,11 @@ public class DNATreeStruct {
     }
 
 
+
     /**
      * Print the DNATree helper. First find the levels of each
-     * 
-     * @return the String version of the tree
-     * @param c
+     * @param node the node at which to be edited
+     * @param level the level of the node
      */
     private void print(DNATreeNode node, int level) {
 
@@ -204,11 +202,8 @@ public class DNATreeStruct {
 
 
     /**
-     * Print the DNATree
-     * 
-     * @param c
-     * @return the String version of the tree with root
-     *         and parent as parameters
+     * Print the DNATree with statistics such as percentage of 
+     * quark
      */
     public void printStats() {
         System.out.println("tree dump:");
@@ -228,10 +223,9 @@ public class DNATreeStruct {
 
 
     /**
-     * Print the DNATree helper. First find the levels of each
-     * 
-     * @return the String version of the tree
-     * @param c
+     * Helper method to print the statistics and calculate the percentages
+     * @param node node to be edited
+     * @param level level of that node
      */
     private void printStats(DNATreeNode node, int level) {
 
@@ -262,8 +256,9 @@ public class DNATreeStruct {
 
 
     /**
-     *
-     * @param c
+     * Helper again for the calculations of percentages
+     * @param seq
+     *      the sequence 
      * @return the String version of the tree with root
      *         and parent as parameters
      */
@@ -295,8 +290,8 @@ public class DNATreeStruct {
 
         seq += " A:" + String.format("%.2f", aCount * 100) + " " + "C:" + String
             .format("%.2f", cCount * 100) + " " + "G:" + String.format("%.2f",
-                gCount * 100) + " " + "T:" + String.format("%.2f", tCount * 100)
-            + " ";
+                gCount * 100) + " " + "T:" + 
+                String.format("%.2f", tCount * 100);
 
         return seq;
 
@@ -305,9 +300,7 @@ public class DNATreeStruct {
 
     /**
      *
-     * @param c
-     * @return the String version of the tree with root
-     *         and parent as parameters
+     * Print the tree with all nodes along with the length 
      */
     public void printLengths() {
         System.out.println("tree dump:");
@@ -316,7 +309,7 @@ public class DNATreeStruct {
         }
         else if (root instanceof LeafNode) {
             String seq = ((LeafNode)root).getSequence();
-            System.out.println(seq + " " + seq.length());
+            System.out.println(seq + " " + seq.length() + "\n");
         }
         else {
             System.out.println("I");
@@ -327,10 +320,9 @@ public class DNATreeStruct {
 
 
     /**
-     * Print the DNATree helper. First find the levels of each
-     * 
-     * @return the String version of the tree
-     * @param c
+     * Helper method to print the lengths along with tree
+     * @param node node to be edited
+     * @param level level of that node
      */
     private void printLengths(DNATreeNode node, int level) {
 
@@ -485,7 +477,8 @@ public class DNATreeStruct {
         int visits) {
         if (seq.length() == level) {
             if (((InternalNode)node).getBranch('$') instanceof EmptyNode) {
-                // do nothing
+                int webcat = 0;
+                webcat = webcat + 9;
             }
             else {
                 DNATreeNode leaf = ((InternalNode)node).getBranch('$');
@@ -498,7 +491,8 @@ public class DNATreeStruct {
         else {
             if (((InternalNode)node).getBranch(seq.charAt(
                 level)) instanceof EmptyNode) {
-                // do nothing
+                int webcat = 0;
+                webcat = webcat + 9;
             }
             else if (((InternalNode)node).getBranch(seq.charAt(
                 level)) instanceof LeafNode) {
